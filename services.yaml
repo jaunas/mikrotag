@@ -1,0 +1,14 @@
+services:
+
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Jaunas\Mikrotag\:
+        resource: 'src/*'
+
+    Symfony\Component\Console\Application:
+        class: Symfony\Component\Console\Application
+        public: true
+        calls:
+            - [add, ['@Jaunas\Mikrotag\Command\Fetch']]
