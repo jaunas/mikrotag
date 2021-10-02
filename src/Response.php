@@ -18,7 +18,8 @@ class Response
     {
         $this->validate();
         $this->response = json_decode($this->httpResponse->getContent(), true);
-        $this->data = new $this->dataType($this->response['data']);
+        $parser = new Parser($this->dataType);
+        $this->data = $parser->parse($this->response);
     }
 
     public function getResponse(): array

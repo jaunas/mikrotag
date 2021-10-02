@@ -2,42 +2,44 @@
 
 namespace Jaunas\Mikrotag\DataType;
 
+use Jaunas\Mikrotag\Field;
+
 class Entry extends DataType
 {
 
-    private string $id;
-    private string $date;
-    private string $body;
-    private array $author;
-    private string $blocked;
-    private string $favorite;
-    private string $voteCount;
-    private string $commentsCount;
-    private string $status;
-    private ?array $embed;
-    private string $userVote;
-    private ?string $app;
+    #[Field]
+    public string $id;
 
-    protected function parseResponse(): void
-    {
-        // TODO Maybe property attributes can help here?
-        $map = [
-            'id' => 'id',
-            'date' => 'date',
-            'body' => 'body',
-            'author' => 'author',
-            'blocked' => 'blocked',
-            'favorite' => 'favorite',
-            'vote_count' => 'voteCount',
-            'comments_count' => 'commentsCount',
-            'status' => 'status',
-            'embed' => 'embed',
-            'user_vote' => 'userVote',
-            'app' => 'app'
-        ];
+    #[Field]
+    public string $date;
 
-        foreach ($map as $id => $property) {
-            $this->$property = @$this->dataArray[$id];
-        }
-    }
+    #[Field]
+    public ?string $body;
+
+    #[Field]
+    public array $author;
+
+    #[Field]
+    public string $blocked;
+
+    #[Field]
+    public string $favorite;
+
+    #[Field('vote_count')]
+    public string $voteCount;
+
+    #[Field('comments_count')]
+    public string $commentsCount;
+
+    #[Field]
+    public string $status;
+
+    #[Field]
+    public ?array $embed;
+
+    #[Field('user_vote')]
+    public string $userVote;
+
+    #[Field]
+    public ?string $app;
 }

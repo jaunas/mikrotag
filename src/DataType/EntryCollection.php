@@ -2,16 +2,13 @@
 
 namespace Jaunas\Mikrotag\DataType;
 
+use Jaunas\Mikrotag\Field;
+
 class EntryCollection extends DataType
 {
-    private array $entries = [];
-
-    protected function parseResponse(): void
-    {
-        foreach ($this->dataArray as $item) {
-            $this->entries[] = new Entry($item);
-        }
-    }
+    /** @var Entry[] */
+    #[Field('data', Entry::class)]
+    public array $entries;
 
     public function getEntries(): array
     {
