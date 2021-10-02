@@ -2,6 +2,6 @@
 
 namespace Jaunas\Mikrotag\DataType;
 
-abstract class DataType
+interface DataType
 {
 }

@@ -4,6 +4,7 @@ namespace Jaunas\Mikrotag;
 
 use Jaunas\Mikrotag\DataType\DataType;
 use ReflectionClass;
+use ReflectionNamedType;
 
 class Parser
 {
@@ -20,9 +21,15 @@ class Parser
 
         foreach ($this->map as $fieldName => $property) if (isset($data[$fieldName])) {
             $value = $data[$fieldName];
-            if ($property['type']->getName() == 'array' && $property['itemType']) {
+
+            /** @var ReflectionNamedType $type */
+            $type = $property['type'];
+            if ($type->getName() == 'array' && $property['itemType']) {
                 $value = $this->parseArray($data[$fieldName], $property['itemType']);
+            } elseif (!$type->isBuiltIn()) {
+                $value = $this->parseDataType($data[$fieldName], $type->getName());
             }
+
             $object->{$property['name']} = $value;
         }
 
@@ -38,6 +45,12 @@ class Parser
         }
 
         return $value;
+    }
+
+    private function parseDataType(array $array, string $dataType): DataType
+    {
+        $parser = new Parser($dataType);
+        return $parser->parse($array);
     }
 
     private function buildMap()

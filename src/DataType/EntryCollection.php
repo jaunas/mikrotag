@@ -4,7 +4,7 @@ namespace Jaunas\Mikrotag\DataType;
 
 use Jaunas\Mikrotag\Field;
 
-class EntryCollection extends DataType
+class EntryCollection implements DataType
 {
     /** @var Entry[] */
     #[Field('data', Entry::class)]

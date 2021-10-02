@@ -4,7 +4,7 @@ namespace Jaunas\Mikrotag\DataType;
 
 use Jaunas\Mikrotag\Field;
 
-class Entry extends DataType
+class Entry implements DataType
 {
 
     #[Field]
@@ -17,7 +17,7 @@ class Entry extends DataType
     public ?string $body;
 
     #[Field]
-    public array $author;
+    public Author $author;
 
     #[Field]
     public string $blocked;
@@ -35,7 +35,7 @@ class Entry extends DataType
     public string $status;
 
     #[Field]
-    public ?array $embed;
+    public ?Embed $embed;
 
     #[Field('user_vote')]
     public string $userVote;
