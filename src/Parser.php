@@ -17,7 +17,7 @@ class Parser
 
     public function parse(array $data): DataType
     {
-        $object = new ($this->class)([]);
+        $object = new ($this->class)();
 
         foreach ($this->map as $fieldName => $property) if (isset($data[$fieldName])) {
             $value = $data[$fieldName];

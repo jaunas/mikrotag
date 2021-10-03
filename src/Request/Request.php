@@ -18,7 +18,7 @@ abstract class Request
         $this->client = HttpClient::create();
     }
 
-    public function request(): Response
+    public function getResponse(): Response
     {
         $url = $this->getUrl();
         $signature = md5($_ENV['SECRET_KEY'] . $url);

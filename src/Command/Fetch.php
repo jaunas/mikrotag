@@ -19,10 +19,10 @@ class Fetch extends Command
     {
         $request = new Hot();
         $output->writeln($request->getUrl());
-        $response = $request->request();
+        $response = $request->getResponse();
         /** @var EntryCollection $entries */
         $entries = $response->getData();
-        $output->writeln(print_r($entries->getEntries(), true));
+        $output->writeln(print_r($entries, true));
 
         return 0;
     }
