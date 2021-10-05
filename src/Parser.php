@@ -17,20 +17,22 @@ class Parser
 
     public function parse(array $data): DataType
     {
-        $object = new ($this->class)();
+        $object = new $this->class();
 
-        foreach ($this->map as $fieldName => $property) if (isset($data[$fieldName])) {
-            $value = $data[$fieldName];
+        foreach ($this->map as $fieldName => $property) {
+            if (isset($data[$fieldName])) {
+                $value = $data[$fieldName];
 
-            /** @var ReflectionNamedType $type */
-            $type = $property['type'];
-            if ($type->getName() == 'array' && $property['itemType']) {
-                $value = $this->parseArray($data[$fieldName], $property['itemType']);
-            } elseif (!$type->isBuiltIn()) {
-                $value = $this->parseDataType($data[$fieldName], $type->getName());
+                /** @var ReflectionNamedType $type */
+                $type = $property['type'];
+                if ($type->getName() == 'array' && $property['itemType']) {
+                    $value = $this->parseArray($data[$fieldName], $property['itemType']);
+                } elseif (!$type->isBuiltIn()) {
+                    $value = $this->parseDataType($data[$fieldName], $type->getName());
+                }
+
+                $object->{$property['name']} = $value;
             }
-
-            $object->{$property['name']} = $value;
         }
 
         return $object;

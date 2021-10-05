@@ -11,4 +11,11 @@ services:
         class: Symfony\Component\Console\Application
         public: true
         calls:
-            - [add, ['@Jaunas\Mikrotag\Command\Fetch']]
+            - [add, ['@Jaunas\Mikrotag\Command\FetchHot']]
+
+    Symfony\Contracts\HttpClient\HttpClientInterface:
+        factory: ['Symfony\Component\HttpClient\HttpClient', 'create']
+
+    Dotenv\Dotenv:
+        factory: ['Dotenv\Dotenv', 'createImmutable']
+        arguments: ['.']

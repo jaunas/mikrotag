@@ -9,8 +9,9 @@ class Field
 {
     public function __construct(
         private ?string $name = null,
-        private ?string $itemType = null
-    ) {}
+        private ?string $itemType = null,
+    ) {
+    }
 
     public function getName(): ?string
     {

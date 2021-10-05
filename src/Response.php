@@ -2,6 +2,7 @@
 
 namespace Jaunas\Mikrotag;
 
+use Exception;
 use Jaunas\Mikrotag\DataType\DataType;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
@@ -14,8 +15,7 @@ class Response
     public function __construct(
         private ResponseInterface $httpResponse,
         private string $dataType
-    )
-    {
+    ) {
         $this->validate();
         $this->response = json_decode($this->httpResponse->getContent(), true);
         $parser = new Parser($this->dataType);
@@ -35,7 +35,7 @@ class Response
     private function validate(): void
     {
         if ($this->httpResponse->getStatusCode() != 200) {
-            throw new \Exception('Response is not valid');
+            throw new Exception('Response is not valid');
         }
         // TODO
     }

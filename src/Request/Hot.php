@@ -6,10 +6,8 @@ use Jaunas\Mikrotag\DataType\EntryCollection;
 
 class Hot extends Request
 {
-    public function __construct(private int $page = 1, private int $period = 6)
-    {
-        parent::__construct();
-    }
+    private int $page = 1;
+    private int $period = 6;
 
     protected function getEndpoint(): string
     {
@@ -27,5 +25,27 @@ class Hot extends Request
     protected function getDataType(): string
     {
         return EntryCollection::class;
+    }
+
+    public function getPage(): int
+    {
+        return $this->page;
+    }
+
+    public function setPage(int $page): Hot
+    {
+        $this->page = $page;
+        return $this;
+    }
+
+    public function getPeriod(): int
+    {
+        return $this->period;
+    }
+
+    public function setPeriod(int $period): Hot
+    {
+        $this->period = $period;
+        return $this;
     }
 }

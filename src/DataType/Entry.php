@@ -6,7 +6,6 @@ use Jaunas\Mikrotag\Field;
 
 class Entry implements DataType
 {
-
     #[Field]
     public string $id;
 

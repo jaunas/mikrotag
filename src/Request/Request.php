@@ -3,25 +3,22 @@
 namespace Jaunas\Mikrotag\Request;
 
 use Jaunas\Mikrotag\QueryBuilder;
+use Jaunas\Mikrotag\Registry;
 use Jaunas\Mikrotag\Response;
-use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 abstract class Request
 {
     private const BASE_URL = 'https://a2.wykop.pl';
 
-    private HttpClientInterface $client;
-
-    public function __construct()
+    public function __construct(private HttpClientInterface $client, private Registry $registry)
     {
-        $this->client = HttpClient::create();
     }
 
     public function getResponse(): Response
     {
         $url = $this->getUrl();
-        $signature = md5($_ENV['SECRET_KEY'] . $url);
+        $signature = md5($this->registry->getSecretKey() . $url);
         $httpResponse = $this->client->request('GET', $url, ['headers' => ['apisign' => $signature]]);
 
         return new Response($httpResponse, $this->getDataType());
@@ -34,7 +31,7 @@ abstract class Request
         return $queryBuilder
             ->addParts([self::BASE_URL, $this->getEndpoint()])
             ->addPartsWithKeys($this->getParameters())
-            ->addPartsWithKeys(['appkey' => $_ENV['API_KEY']])
+            ->addPartsWithKeys(['appkey' => $this->registry->getApiKey()])
             ->getQuery();
     }
 
