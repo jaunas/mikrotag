@@ -36,6 +36,11 @@ abstract class Request
     }
 
     abstract protected function getEndpoint(): string;
+
+    /**
+     * @return array<string,mixed>
+     */
     abstract protected function getParameters(): array;
+
     abstract protected function getDataType(): string;
 }

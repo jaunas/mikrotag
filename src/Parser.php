@@ -8,6 +8,8 @@ use ReflectionNamedType;
 
 class Parser
 {
+    // TODO Consider making it array<string,CustomClass>
+    /** @var array<string,array> */
     private array $map = [];
 
     public function __construct(private string $class)
@@ -15,6 +17,9 @@ class Parser
         $this->buildMap();
     }
 
+    /**
+     * @param array<string,mixed> $data Raw data
+     */
     public function parse(array $data): DataType
     {
         $object = new $this->class();
@@ -38,6 +43,11 @@ class Parser
         return $object;
     }
 
+    /**
+     * @param array[] $array
+     *
+     * @return DataType[]
+     */
     private function parseArray(array $array, string $itemType): array
     {
         $parser = new Parser($itemType);
@@ -49,13 +59,16 @@ class Parser
         return $value;
     }
 
+    /**
+     * @param array<string,mixed> $array
+     */
     private function parseDataType(array $array, string $dataType): DataType
     {
         $parser = new Parser($dataType);
         return $parser->parse($array);
     }
 
-    private function buildMap()
+    private function buildMap(): void
     {
         $reflectionClass = new ReflectionClass($this->class);
 

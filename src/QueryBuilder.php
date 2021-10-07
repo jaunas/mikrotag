@@ -4,6 +4,7 @@ namespace Jaunas\Mikrotag;
 
 class QueryBuilder
 {
+    /** @var string[] */
     private array $parts = [];
 
     public function addPart(string $part): self
@@ -13,6 +14,9 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @param array<string,string> $parts
+     */
     public function addPartsWithKeys(array $parts): self
     {
         foreach ($parts as $key => $value) {
@@ -23,6 +27,9 @@ class QueryBuilder
         return $this;
     }
 
+    /**
+     * @param string[] $parts
+     */
     public function addParts(array $parts): self
     {
         $this->parts = array_merge($this->parts, $parts);
