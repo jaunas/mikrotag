@@ -1,6 +1,7 @@
 {
     "name": "jaunas/mikrotag",
     "type": "project",
+    "description": "Client of wykop.pl website",
     "license": "MIT",
     "autoload": {
         "psr-4": {
