@@ -5,7 +5,8 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Jaunas\\Mikrotag\\": "src/"
+            "Jaunas\\Mikrotag\\": "src/",
+            "Jaunas\\Mikrotag\\Tests\\": "tests/"
         }
     },
     "authors": [
@@ -27,17 +28,22 @@
         "friendsofphp/php-cs-fixer": "^3.1",
         "squizlabs/php_codesniffer": "^3.6",
         "phpmd/phpmd": "^2.10",
-        "phpstan/phpstan": "^0.12.99"
+        "phpstan/phpstan": "^0.12.99",
+        "phpunit/phpunit": "^9.5"
     },
     "scripts": {
-        "fix": "php-cs-fixer fix src/",
+        "fix": "php-cs-fixer fix",
+        "test:php-cs-fixer": "php-cs-fixer fix --dry-run",
         "test:phpcs": "phpcs src/",
         "test:phpmd": "phpmd src/ text ruleset",
         "test:phpstan": "phpstan analyse --level 8 src",
+        "test:phpunit": "phpunit",
         "test": [
+            "@test:php-cs-fixer",
             "@test:phpcs",
             "@test:phpmd",
-            "@test:phpstan"
+            "@test:phpstan",
+            "@test:phpunit"
         ]
     }
 }

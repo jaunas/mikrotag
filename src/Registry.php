@@ -12,8 +12,8 @@ class Registry
     public function __construct(Dotenv $dotenv)
     {
         $params = $dotenv->load();
-        $this->apiKey = $params['API_KEY'] ?: '';
-        $this->secretKey = $params['SECRET_KEY'] ?: '';
+        $this->apiKey = $params['API_KEY'] ?? '';
+        $this->secretKey = $params['SECRET_KEY'] ?? '';
     }
 
     public function getApiKey(): string
