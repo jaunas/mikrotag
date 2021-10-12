@@ -8,10 +8,14 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 
 class Response
 {
+    /** @var array<mixed,mixed> Raw response in array format */
     private array $response;
 
     private DataType $data;
 
+    /**
+     * @param class-string $dataType
+     */
     public function __construct(
         private ResponseInterface $httpResponse,
         private string $dataType
@@ -22,6 +26,9 @@ class Response
         $this->data = $parser->parse($this->response);
     }
 
+    /**
+     * @return array<mixed,mixed>
+     */
     public function getResponse(): array
     {
         return $this->response;

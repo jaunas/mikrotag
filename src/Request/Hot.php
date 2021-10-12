@@ -14,6 +14,9 @@ class Hot extends Request
         return 'entries/hot';
     }
 
+    /**
+     * @return array{page: int, period: int}
+     */
     protected function getParameters(): array
     {
         return [
