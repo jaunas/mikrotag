@@ -12,6 +12,9 @@ class Parser
     /** @var array<string,array> */
     private array $map = [];
 
+    /**
+     * @param class-string $class
+     */
     public function __construct(private string $class)
     {
         $this->buildMap();
@@ -32,7 +35,7 @@ class Parser
                 $type = $property['type'];
                 if ($type->getName() == 'array' && $property['itemType']) {
                     $value = $this->parseArray($data[$fieldName], $property['itemType']);
-                } elseif (!$type->isBuiltIn()) {
+                } elseif (!$type->isBuiltIn() && class_exists($type->getName())) {
                     $value = $this->parseDataType($data[$fieldName], $type->getName());
                 }
 
@@ -45,6 +48,7 @@ class Parser
 
     /**
      * @param array[] $array
+     * @param class-string $itemType
      *
      * @return DataType[]
      */
@@ -61,6 +65,7 @@ class Parser
 
     /**
      * @param array<string,mixed> $array
+     * @param class-string $dataType
      */
     private function parseDataType(array $array, string $dataType): DataType
     {

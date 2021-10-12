@@ -13,6 +13,9 @@ class Response
 
     private DataType $data;
 
+    /**
+     * @param class-string $dataType
+     */
     public function __construct(
         private ResponseInterface $httpResponse,
         private string $dataType

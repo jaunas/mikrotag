@@ -42,5 +42,8 @@ abstract class Request
      */
     abstract protected function getParameters(): array;
 
+    /**
+     * @return class-string
+     */
     abstract protected function getDataType(): string;
 }

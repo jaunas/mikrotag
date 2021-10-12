@@ -33,7 +33,7 @@
         "fix": "php-cs-fixer fix src/",
         "test:phpcs": "phpcs src/",
         "test:phpmd": "phpmd src/ text ruleset",
-        "test:phpstan": "phpstan analyse --level 6 src",
+        "test:phpstan": "phpstan analyse --level 8 src",
         "test": [
             "@test:phpcs",
             "@test:phpmd",
